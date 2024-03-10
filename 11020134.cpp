@@ -10,46 +10,46 @@
 using namespace std;
 
 struct heap_node {
-	int id; // ²Ä´X­Ó¥[¶ivectorªº¸ê®Æ 
-	int student_count; // ¾Ç¥Í¼Æ 
+	int id; // ç¬¬å¹¾å€‹åŠ é€²vectorçš„è³‡æ–™ 
+	int student_count; // å­¸ç”Ÿæ•¸ 
 };
 
 // build the Min heap
 void MinHeapRe(vector<heap_node>& minHeap, int data_num) {
     if (data_num <= 1) {
-        return; // ²×¤î»¼°j
+        return; // çµ‚æ­¢éè¿´
     }
 
     if (minHeap[data_num - 1].student_count < minHeap[(data_num / 2) - 1].student_count) {
-        // ¶i¦æ¥æ´«
+        // é€²è¡Œäº¤æ›
         heap_node temp = minHeap[data_num - 1];
         minHeap[data_num - 1] = minHeap[(data_num / 2) - 1];
         minHeap[(data_num / 2) - 1] = temp;
 
-        // ¶¶¶Õ©¹¤WÀË¬d¬O§_­n¦A¥æ´«
-        MinHeapRe(minHeap, data_num / 2); // »¼°j©I¥s
+        // é †å‹¢å¾€ä¸Šæª¢æŸ¥æ˜¯å¦è¦å†äº¤æ›
+        MinHeapRe(minHeap, data_num / 2); // éè¿´å‘¼å«
     }
 }
 
 bool MinMaxHeap_father(vector<heap_node>& min_max_heap, int data_num, int type) {
 	
 	if (data_num <= 1) {
-        return false; // ®Ú¸`ÂI 
+        return false; // æ ¹ç¯€é» 
     }
 	
-	// ¦³¨S¦³¸ò¤÷¸`ÂI¥æ´«¹L 
+	// æœ‰æ²’æœ‰è·Ÿçˆ¶ç¯€é»äº¤æ›é 
 	bool changed = false;
 	
-	// ¥ıÀË¬d¤÷¸`ÂI»İ¤£»İ­n¥æ´«
+	// å…ˆæª¢æŸ¥çˆ¶ç¯€é»éœ€ä¸éœ€è¦äº¤æ›
 	if (type == MIN) {
 	
 		if (min_max_heap[data_num - 1].student_count < min_max_heap[(data_num / 2) - 1].student_count) {
-        	// ¶i¦æ¥æ´«
+        	// é€²è¡Œäº¤æ›
         	heap_node temp = min_max_heap[data_num - 1];
         	min_max_heap[data_num - 1] = min_max_heap[(data_num / 2) - 1];
         	min_max_heap[(data_num / 2) - 1] = temp;
 
-        	// ¤£»İ­n»¼°j©I¥s
+        	// ä¸éœ€è¦éè¿´å‘¼å«
        		
        		changed = true;
    		}
@@ -59,15 +59,15 @@ bool MinMaxHeap_father(vector<heap_node>& min_max_heap, int data_num, int type) 
 	if (type == MAX) {
 		
 		if (min_max_heap[data_num - 1].student_count > min_max_heap[(data_num / 2) - 1].student_count) {
-    		// ¶i¦æ¥æ´«
+    		// é€²è¡Œäº¤æ›
         	heap_node temp = min_max_heap[data_num - 1];
         	min_max_heap[data_num - 1] = min_max_heap[(data_num / 2) - 1];
         	min_max_heap[(data_num / 2) - 1] = temp;
 
-        	// ¤£»İ­n»¼°j©I¥s
+        	// ä¸éœ€è¦éè¿´å‘¼å«
         	
         	changed = true;
-    	}
+    		}
 	}
 	
 	return changed;	
@@ -75,38 +75,38 @@ bool MinMaxHeap_father(vector<heap_node>& min_max_heap, int data_num, int type) 
 
 void MinMaxHeapRe(vector<heap_node>& min_max_heap, int data_num, int type) {
 		
-	// ¥H¤U¶}©lmin max±Æ§Ç
-	// ¥B·|¶}©l»¼°j©I¥s
+	// ä»¥ä¸‹é–‹å§‹min maxæ’åº
+	// ä¸”æœƒé–‹å§‹éè¿´å‘¼å«
 	
 	if (data_num < 4) {
-        return; // ²×¤î»¼°j
+        return; // çµ‚æ­¢éè¿´
     }
 
 	if (type == MIN) {
 
-		// Min Heapªº±¡ªp¡A¦pªG¥Ø«e¸`ÂI¤ñ¯ª¤÷¸`ÂI­n¤p¡A«h¥æ´« 
+		// Min Heapçš„æƒ…æ³ï¼Œå¦‚æœç›®å‰ç¯€é»æ¯”ç¥–çˆ¶ç¯€é»è¦å°ï¼Œå‰‡äº¤æ› 
     	if (min_max_heap[data_num - 1].student_count < min_max_heap[(data_num / 4) - 1].student_count) {
-        	// ¶i¦æ¥æ´«
+        	// é€²è¡Œäº¤æ›
         	heap_node temp = min_max_heap[data_num - 1];
         	min_max_heap[data_num - 1] = min_max_heap[(data_num / 4) - 1];
         	min_max_heap[(data_num / 4) - 1] = temp;
 
-        	// ¶¶¶Õ©¹¤WÀË¬d¬O§_­n¦A¥æ´«
-        	MinMaxHeapRe(min_max_heap, data_num / 4, type); // »¼°j©I¥s
-    	}
+        	// é †å‹¢å¾€ä¸Šæª¢æŸ¥æ˜¯å¦è¦å†äº¤æ›
+        	MinMaxHeapRe(min_max_heap, data_num / 4, type); // éè¿´å‘¼å«
+    		}	
 	}
     
     else if (type == MAX) {
 
-    	// Max Heapªº±¡ªp¡A¦pªG¥Ø«e¸`ÂI¤ñ¯ª¤÷¸`ÂI­n¤j¡A«h¥æ´« 
+    	// Max Heapçš„æƒ…æ³ï¼Œå¦‚æœç›®å‰ç¯€é»æ¯”ç¥–çˆ¶ç¯€é»è¦å¤§ï¼Œå‰‡äº¤æ› 
 		if (min_max_heap[data_num - 1].student_count > min_max_heap[(data_num / 4) - 1].student_count) {
-        	// ¶i¦æ¥æ´«
+        	// é€²è¡Œäº¤æ›
         	heap_node temp = min_max_heap[data_num - 1];
         	min_max_heap[data_num - 1] = min_max_heap[(data_num / 4) - 1];
         	min_max_heap[(data_num / 4) - 1] = temp;
 
-        	// ¶¶¶Õ©¹¤WÀË¬d¬O§_­n¦A¥æ´«
-       		MinMaxHeapRe(min_max_heap, data_num / 4, type); // »¼°j©I¥s
+        	// é †å‹¢å¾€ä¸Šæª¢æŸ¥æ˜¯å¦è¦å†äº¤æ›
+       		MinMaxHeapRe(min_max_heap, data_num / 4, type); // éè¿´å‘¼å«
     	}
 		
 	}
@@ -116,15 +116,15 @@ void MinHeap(string fileName) {
     int data_num = 0; 
     int count = 0;
     string garbage;
-    // data_num¬O§Ç¸¹, count¬O¾Ç¥Í¼Æ¡A¤§«á·|¥Î¨ä­È¶i¦æ±Æ§Ç¡Agarbage¬O¦]¬°¸ê®Æ¯S©Ê¡A¦Ó³Q±Ë±óªº¸ê®Æ 
+    // data_numæ˜¯åºè™Ÿ, countæ˜¯å­¸ç”Ÿæ•¸ï¼Œä¹‹å¾Œæœƒç”¨å…¶å€¼é€²è¡Œæ’åºï¼Œgarbageæ˜¯å› ç‚ºè³‡æ–™ç‰¹æ€§ï¼Œè€Œè¢«æ¨æ£„çš„è³‡æ–™ 
     
-    // ¥Îvector°}¦CÀx¦sheap_node¸ê®ÆÃş§O¡Acur_heap_node¬Oinfileªº¹ï¶H ¡A¦binfile¤§«á¦A±N¸ê®Æ±a¤Jvector 
+    // ç”¨vectoré™£åˆ—å„²å­˜heap_nodeè³‡æ–™é¡åˆ¥ï¼Œcur_heap_nodeæ˜¯infileçš„å°è±¡ ï¼Œåœ¨infileä¹‹å¾Œå†å°‡è³‡æ–™å¸¶å…¥vector 
     heap_node cur_heap_node;
     std::string line;
     
     std::ifstream infile(fileName);
     
-    // ¸ê®Æ¶}±Ò¥¢±Ñ 
+    // è³‡æ–™é–‹å•Ÿå¤±æ•— 
     if (!infile.is_open()) {
         std::cerr << "Failed to open the file." << std::endl;
         return;
@@ -139,29 +139,29 @@ void MinHeap(string fileName) {
     int tokenCount = 0;
     
     while (infile >> garbage) {
-    	// Åª¹L§â«e­±¤£»İ­nªº 
+    	// è®€éæŠŠå‰é¢ä¸éœ€è¦çš„ 
         tokenCount++;
         
         if (tokenCount == 8) {
         	infile >> count;
         	data_num = data_num + 1;
         	
-			// »İ­nªº¸ê®Æ
+			// éœ€è¦çš„è³‡æ–™
 			cur_heap_node.id = data_num;			
             cur_heap_node.student_count = count;
         	
             student_count.push_back(cur_heap_node);
             MinHeapRe( student_count, cur_heap_node.id );
             
-            // Åª¨ì­nªº¸ê®Æ«á¸õ¹L³Ñ¤Uªº 
+            // è®€åˆ°è¦çš„è³‡æ–™å¾Œè·³éå‰©ä¸‹çš„ 
             std::getline(infile, line);
-            tokenCount = 0; // ¤U¤@¦æ­«·s¶}©l 
+            tokenCount = 0; // ä¸‹ä¸€è¡Œé‡æ–°é–‹å§‹ 
         }
     }
 
     infile.close();
     
-    // ½T»{¸ê®Æ³£¦³©ñ¨ìvector
+    // ç¢ºèªè³‡æ–™éƒ½æœ‰æ”¾åˆ°vector
     /* 
     for (int i = 0; i < student_count.size(); i++) {
     	cout << student_count[i].id << " ";
@@ -169,18 +169,18 @@ void MinHeap(string fileName) {
     }
     */
 	
-	// ¦L¥Xroot, bottom, leftmost bottom
+	// å°å‡ºroot, bottom, leftmost bottom
 	cout << "<min heap>" << endl;
 	cout << "root: " << "[" << student_count[0].id << "] " << student_count[0].student_count << endl;
 	cout << "bottom: " << "[" << student_count[(student_count.size() - 1)].id << "] " << student_count[(student_count.size() - 1)].student_count << endl;
 	
-	// §ä¥Xleftmost bottom
+	// æ‰¾å‡ºleftmost bottom
 	int node_num = 1;
 	while (node_num < student_count.size()) {
 		node_num = node_num * 2;
 	}
-	// °j°é¹L«á¡Anode_num = ¤j©óvector sizeªº³Ì¤p2¦¸¤è¼Æ
-	// ¸Ó¼Æ¥ı'°£©ó2¡A¦A´î¤@(¦]¬°vector±q0¶}©l)§Y¥i±oleftmost bottom¦bvector¸Ìªº¦ì¸m
+	// è¿´åœˆéå¾Œï¼Œnode_num = å¤§æ–¼vector sizeçš„æœ€å°2æ¬¡æ–¹æ•¸
+	// è©²æ•¸å…ˆ'é™¤æ–¼2ï¼Œå†æ¸›ä¸€(å› ç‚ºvectorå¾0é–‹å§‹)å³å¯å¾—leftmost bottomåœ¨vectorè£¡çš„ä½ç½®
 	node_num = node_num / 2;
 	 
 	cout << "leftmost bottom: " << "[" << student_count[(node_num)-1].id << "] " << student_count[(node_num)-1].student_count << endl;
@@ -192,15 +192,15 @@ void Min_Max_Heap(string fileName) {
     int count = 0;
     string garbage;
     int type = MIN;
-    // data_num¬O§Ç¸¹, count¬O¾Ç¥Í¼Æ¡A¤§«á·|¥Î¨ä­È¶i¦æ±Æ§Ç¡Agarbage¬O¦]¬°¸ê®Æ¯S©Ê¡A¦Ó³Q±Ë±óªº¸ê®Æ¡Atype¬O¥Ø«eªºheapºØÃş¡Aªì©l(²Ä¤@¼h)¬Omin heap 
+    // data_numæ˜¯åºè™Ÿ, countæ˜¯å­¸ç”Ÿæ•¸ï¼Œä¹‹å¾Œæœƒç”¨å…¶å€¼é€²è¡Œæ’åºï¼Œgarbageæ˜¯å› ç‚ºè³‡æ–™ç‰¹æ€§ï¼Œè€Œè¢«æ¨æ£„çš„è³‡æ–™ï¼Œtypeæ˜¯ç›®å‰çš„heapç¨®é¡ï¼Œåˆå§‹(ç¬¬ä¸€å±¤)æ˜¯min heap 
     
-    // ¥Îvector°}¦CÀx¦sheap_node¸ê®ÆÃş§O¡Acur_heap_node¬Oinfileªº¹ï¶H ¡A¦binfile¤§«á¦A±N¸ê®Æ±a¤Jvector 
+    // ç”¨vectoré™£åˆ—å„²å­˜heap_nodeè³‡æ–™é¡åˆ¥ï¼Œcur_heap_nodeæ˜¯infileçš„å°è±¡ ï¼Œåœ¨infileä¹‹å¾Œå†å°‡è³‡æ–™å¸¶å…¥vector 
     heap_node cur_heap_node;
     std::string line;
     
     std::ifstream infile(fileName);
     
-    // ¸ê®Æ¶}±Ò¥¢±Ñ 
+    // è³‡æ–™é–‹å•Ÿå¤±æ•— 
     if (!infile.is_open()) {
         std::cerr << "Failed to open the file." << std::endl;
         return;
@@ -215,20 +215,20 @@ void Min_Max_Heap(string fileName) {
     int tokenCount = 0;
     
     while (infile >> garbage) {
-    	// Åª¹L§â«e­±¤£»İ­nªº 
+    	// è®€éæŠŠå‰é¢ä¸éœ€è¦çš„ 
         tokenCount++;
         
         if (tokenCount == 8) {
         	infile >> count;
         	data_num = data_num + 1;
         	
-			// »İ­nªº¸ê®Æ
+			// éœ€è¦çš„è³‡æ–™
 			cur_heap_node.id = data_num;			
             cur_heap_node.student_count = count;
         	
             student_count.push_back(cur_heap_node);
             
-            // ¥b¬q¥Ø«eªº¸`ÂI³B¦bmin heapªº³¡¤ÀÁÙ¬Omax heap 
+            // åŠæ®µç›®å‰çš„ç¯€é»è™•åœ¨min heapçš„éƒ¨åˆ†é‚„æ˜¯max heap 
             int depth = 0;
             int temp = 1;
             while (temp < student_count.size()) {
@@ -236,7 +236,7 @@ void Min_Max_Heap(string fileName) {
             	temp = temp * 2;
 			}
             
-            // ©_¼Æ¼h¬Omin¡A°¸¼Æ¼h¦¸max
+            // å¥‡æ•¸å±¤æ˜¯minï¼Œå¶æ•¸å±¤æ¬¡max
 			if (depth % 2 == 0) {
 				type = MAX;
 			} 
@@ -244,52 +244,50 @@ void Min_Max_Heap(string fileName) {
 				type = MIN;
 			}
             
-            // Åª¨ì­nªº¸ê®Æ«á¸õ¹L³Ñ¤Uªº 
+            // è®€åˆ°è¦çš„è³‡æ–™å¾Œè·³éå‰©ä¸‹çš„ 
             std::getline(infile, line);
             
-            // ¨Ç³\±ø¥óªºªì©l¤Æ 
+            // äº›è¨±æ¢ä»¶çš„åˆå§‹åŒ– 
             tokenCount = 0;
             type = MIN;
             
-            // ÀË¬d»İ¤£»İ­n¸ò¤÷¸`ÂI¥æ´«
-			bool changed = MinMaxHeap_father(student_count, data_num, type * -1);
+            // æª¢æŸ¥éœ€ä¸éœ€è¦è·Ÿçˆ¶ç¯€é»äº¤æ›
+		bool changed = MinMaxHeap_father(student_count, data_num, type * -1);
 			
-			// ¦pªG¦³¸ò¤÷¸`ÂI¥æ´«¡AÀË¬dªº¸`ÂI½s¸¹¸òheap type­n§ó·s
-			int data_num_temp = data_num;
-			if (changed) {
-				data_num_temp = data_num_temp / 2;
-				type = type * -1;
-			} 
+		// å¦‚æœæœ‰è·Ÿçˆ¶ç¯€é»äº¤æ›ï¼Œæª¢æŸ¥çš„ç¯€é»ç·¨è™Ÿè·Ÿheap typeè¦æ›´æ–°
+		int data_num_temp = data_num;
+		if (changed) {
+			data_num_temp = data_num_temp / 2;
+			type = type * -1;
+		} 
             
-            // ©¹¤W¶i¦æ¸ò¯ª¤÷¸`ÂIªº¥æ´«
-			MinMaxHeapRe(student_count, data_num_temp, type);
+            // å¾€ä¸Šé€²è¡Œè·Ÿç¥–çˆ¶ç¯€é»çš„äº¤æ›
+	    MinMaxHeapRe(student_count, data_num_temp, type);
 			
-			// Åª¨ì­nªº¸ê®Æ«á¸õ¹L³Ñ¤Uªº 
+	    // è®€åˆ°è¦çš„è³‡æ–™å¾Œè·³éå‰©ä¸‹çš„ 
             std::getline(infile, line);
             
-            // ¨Ç³\±ø¥óªºªì©l¤Æ 
+            // äº›è¨±æ¢ä»¶çš„åˆå§‹åŒ– 
             tokenCount = 0;
                         
-            // ¤U¤@¦æ­«·s¶}©l
-			
-			cout << "test root: " << "[" << student_count[0].id << "] " << student_count[0].student_count << endl;
+            // ä¸‹ä¸€è¡Œé‡æ–°é–‹å§‹
         }
     }
 
     infile.close();
     
-	// ¦L¥Xroot, bottom, leftmost bottom
+	// å°å‡ºroot, bottom, leftmost bottom
 	cout << "<min-max heap>" << endl;
 	cout << "root: " << "[" << student_count[0].id << "] " << student_count[0].student_count << endl;
 	cout << "bottom: " << "[" << student_count[(student_count.size() - 1)].id << "] " << student_count[(student_count.size() - 1)].student_count << endl;
 	
-	// §ä¥Xleftmost bottom
+	// æ‰¾å‡ºleftmost bottom
 	int node_num = 1;
 	while (node_num < student_count.size()) {
 		node_num = node_num * 2;
 	}
-	// °j°é¹L«á¡Anode_num = ¤j©óvector sizeªº³Ì¤p2¦¸¤è¼Æ
-	// ¸Ó¼Æ¥ı'°£©ó2¡A¦A´î¤@(¦]¬°vector±q0¶}©l)§Y¥i±oleftmost bottom¦bvector¸Ìªº¦ì¸m
+	// è¿´åœˆéå¾Œï¼Œnode_num = å¤§æ–¼vector sizeçš„æœ€å°2æ¬¡æ–¹æ•¸
+	// è©²æ•¸å…ˆ'é™¤æ–¼2ï¼Œå†æ¸›ä¸€(å› ç‚ºvectorå¾0é–‹å§‹)å³å¯å¾—leftmost bottomåœ¨vectorè£¡çš„ä½ç½®
 	node_num = node_num / 2;
 	 
 	cout << "leftmost bottom: " << "[" << student_count[(node_num)-1].id << "] " << student_count[(node_num)-1].student_count << endl;
@@ -317,9 +315,9 @@ int main() {
     	if (command == 1) {
     		cout << "Input a file number ([0] Quit):";
 
-    		// ±q¨Ï¥ÎªÌ¿é¤J¤¤Åª¨úÀÉ®×½s¸¹
+    		// å¾ä½¿ç”¨è€…è¼¸å…¥ä¸­è®€å–æª”æ¡ˆç·¨è™Ÿ
     		cin >> fileName;
-    		// ²Õ¦XÀÉ®×¦WºÙ	 ex:"input401.txt"
+    		// çµ„åˆæª”æ¡ˆåç¨±	 ex:"input401.txt"
 			fileName = "input" + fileName + ".txt";
 			
     		MinHeap(fileName);
@@ -328,9 +326,9 @@ int main() {
 		if (command == 2) {
 			cout << "Input a file number ([0] Quit):";
 			
-			// ±q¨Ï¥ÎªÌ¿é¤J¤¤Åª¨úÀÉ®×½s¸¹
+			// å¾ä½¿ç”¨è€…è¼¸å…¥ä¸­è®€å–æª”æ¡ˆç·¨è™Ÿ
     		cin >> fileName;
-    		// ²Õ¦XÀÉ®×¦WºÙ	 ex:"input401.txt"
+    		// çµ„åˆæª”æ¡ˆåç¨±	 ex:"input401.txt"
 			fileName = "input" + fileName + ".txt";
 			
     		Min_Max_Heap(fileName);
