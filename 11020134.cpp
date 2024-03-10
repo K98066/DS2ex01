@@ -43,7 +43,7 @@ bool MinMaxHeap_father(vector<heap_node>& min_max_heap, int data_num, int type) 
 	// 先檢查父節點需不需要交換
 	if (type == MIN) {
 	
-		if (min_max_heap[data_num - 1].student_count < min_max_heap[(data_num / 2) - 1].student_count) {
+		if (min_max_heap[data_num - 1].student_count <= min_max_heap[(data_num / 2) - 1].student_count) {
         	// 進行交換
         	heap_node temp = min_max_heap[data_num - 1];
         	min_max_heap[data_num - 1] = min_max_heap[(data_num / 2) - 1];
@@ -58,7 +58,7 @@ bool MinMaxHeap_father(vector<heap_node>& min_max_heap, int data_num, int type) 
 		
 	if (type == MAX) {
 		
-		if (min_max_heap[data_num - 1].student_count > min_max_heap[(data_num / 2) - 1].student_count) {
+		if (min_max_heap[data_num - 1].student_count >= min_max_heap[(data_num / 2) - 1].student_count) {
     		// 進行交換
         	heap_node temp = min_max_heap[data_num - 1];
         	min_max_heap[data_num - 1] = min_max_heap[(data_num / 2) - 1];
@@ -67,7 +67,7 @@ bool MinMaxHeap_father(vector<heap_node>& min_max_heap, int data_num, int type) 
         	// 不需要遞迴呼叫
         	
         	changed = true;
-    		}
+    	}
 	}
 	
 	return changed;	
@@ -85,7 +85,7 @@ void MinMaxHeapRe(vector<heap_node>& min_max_heap, int data_num, int type) {
 	if (type == MIN) {
 
 		// Min Heap的情況，如果目前節點比祖父節點要小，則交換 
-    	if (min_max_heap[data_num - 1].student_count < min_max_heap[(data_num / 4) - 1].student_count) {
+    	if (min_max_heap[data_num - 1].student_count <= min_max_heap[(data_num / 4) - 1].student_count) {
         	// 進行交換
         	heap_node temp = min_max_heap[data_num - 1];
         	min_max_heap[data_num - 1] = min_max_heap[(data_num / 4) - 1];
@@ -93,13 +93,13 @@ void MinMaxHeapRe(vector<heap_node>& min_max_heap, int data_num, int type) {
 
         	// 順勢往上檢查是否要再交換
         	MinMaxHeapRe(min_max_heap, data_num / 4, type); // 遞迴呼叫
-    		}	
+    	}
 	}
     
     else if (type == MAX) {
 
     	// Max Heap的情況，如果目前節點比祖父節點要大，則交換 
-		if (min_max_heap[data_num - 1].student_count > min_max_heap[(data_num / 4) - 1].student_count) {
+		if (min_max_heap[data_num - 1].student_count >= min_max_heap[(data_num / 4) - 1].student_count) {
         	// 進行交換
         	heap_node temp = min_max_heap[data_num - 1];
         	min_max_heap[data_num - 1] = min_max_heap[(data_num / 4) - 1];
@@ -191,7 +191,8 @@ void Min_Max_Heap(string fileName) {
     int data_num = 0; 
     int count = 0;
     string garbage;
-    int type = MIN;
+    int main_type;
+    int father_type;
     // data_num是序號, count是學生數，之後會用其值進行排序，garbage是因為資料特性，而被捨棄的資料，type是目前的heap種類，初始(第一層)是min heap 
     
     // 用vector陣列儲存heap_node資料類別，cur_heap_node是infile的對象 ，在infile之後再將資料帶入vector 
@@ -236,41 +237,37 @@ void Min_Max_Heap(string fileName) {
             	temp = temp * 2;
 			}
             
-            // 奇數層是min，偶數層次max
+            // 奇數層是min，偶數層是max
 			if (depth % 2 == 0) {
-				type = MAX;
+				father_type = MIN;
+				main_type = MAX;
 			} 
 			else {
-				type = MIN;
+				main_type = MIN;
+				father_type = MAX;
 			}
             
-            // 讀到要的資料後跳過剩下的 
-            std::getline(infile, line);
-            
-            // 些許條件的初始化 
-            tokenCount = 0;
-            type = MIN;
-            
             // 檢查需不需要跟父節點交換
-		bool changed = MinMaxHeap_father(student_count, data_num, type * -1);
+			bool changed = MinMaxHeap_father(student_count, data_num, father_type);
 			
-		// 如果有跟父節點交換，檢查的節點編號跟heap type要更新
-		int data_num_temp = data_num;
-		if (changed) {
-			data_num_temp = data_num_temp / 2;
-			type = type * -1;
-		} 
+			// 如果有跟父節點交換，檢查的節點編號跟heap type要更新
+			int data_num_temp = data_num;
+			if (changed) {
+				data_num_temp = data_num_temp / 2;
+				main_type = father_type;
+			} 
             
             // 往上進行跟祖父節點的交換
-	    MinMaxHeapRe(student_count, data_num_temp, type);
+			MinMaxHeapRe(student_count, data_num_temp, main_type);
 			
-	    // 讀到要的資料後跳過剩下的 
+			// 讀到要的資料後跳過剩下的 
             std::getline(infile, line);
             
             // 些許條件的初始化 
             tokenCount = 0;
                         
             // 下一行重新開始
+			
         }
     }
 
