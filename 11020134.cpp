@@ -1,3 +1,4 @@
+// 11020134 呂宗凱 
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -43,8 +44,9 @@ bool MinMaxHeap_father(vector<heap_node>& min_max_heap, int data_num, int type) 
 	// 先檢查父節點需不需要交換
 	if (type == MIN) {
 	
-		if (min_max_heap[data_num - 1].student_count <= min_max_heap[(data_num / 2) - 1].student_count) {
+		if (min_max_heap[data_num - 1].student_count < min_max_heap[(data_num / 2) - 1].student_count) {
         	// 進行交換
+             	
         	heap_node temp = min_max_heap[data_num - 1];
         	min_max_heap[data_num - 1] = min_max_heap[(data_num / 2) - 1];
         	min_max_heap[(data_num / 2) - 1] = temp;
@@ -58,7 +60,7 @@ bool MinMaxHeap_father(vector<heap_node>& min_max_heap, int data_num, int type) 
 		
 	if (type == MAX) {
 		
-		if (min_max_heap[data_num - 1].student_count >= min_max_heap[(data_num / 2) - 1].student_count) {
+		if (min_max_heap[data_num - 1].student_count > min_max_heap[(data_num / 2) - 1].student_count) {
     		// 進行交換
         	heap_node temp = min_max_heap[data_num - 1];
         	min_max_heap[data_num - 1] = min_max_heap[(data_num / 2) - 1];
@@ -74,18 +76,20 @@ bool MinMaxHeap_father(vector<heap_node>& min_max_heap, int data_num, int type) 
 }
 
 void MinMaxHeapRe(vector<heap_node>& min_max_heap, int data_num, int type) {
-		
+	
+	
 	// 以下開始min max排序
 	// 且會開始遞迴呼叫
 	
 	if (data_num < 4) {
+		
         return; // 終止遞迴
     }
 
 	if (type == MIN) {
 
 		// Min Heap的情況，如果目前節點比祖父節點要小，則交換 
-    	if (min_max_heap[data_num - 1].student_count <= min_max_heap[(data_num / 4) - 1].student_count) {
+    	if (min_max_heap[data_num - 1].student_count < min_max_heap[(data_num / 4) - 1].student_count) {
         	// 進行交換
         	heap_node temp = min_max_heap[data_num - 1];
         	min_max_heap[data_num - 1] = min_max_heap[(data_num / 4) - 1];
@@ -99,7 +103,7 @@ void MinMaxHeapRe(vector<heap_node>& min_max_heap, int data_num, int type) {
     else if (type == MAX) {
 
     	// Max Heap的情況，如果目前節點比祖父節點要大，則交換 
-		if (min_max_heap[data_num - 1].student_count >= min_max_heap[(data_num / 4) - 1].student_count) {
+		if (min_max_heap[data_num - 1].student_count > min_max_heap[(data_num / 4) - 1].student_count) {
         	// 進行交換
         	heap_node temp = min_max_heap[data_num - 1];
         	min_max_heap[data_num - 1] = min_max_heap[(data_num / 4) - 1];
@@ -122,7 +126,7 @@ void MinHeap(string fileName) {
     heap_node cur_heap_node;
     std::string line;
     
-    std::ifstream infile(fileName);
+    std::ifstream infile(fileName.c_str());
     
     // 資料開啟失敗 
     if (!infile.is_open()) {
@@ -199,7 +203,7 @@ void Min_Max_Heap(string fileName) {
     heap_node cur_heap_node;
     std::string line;
     
-    std::ifstream infile(fileName);
+    std::ifstream infile(fileName.c_str());
     
     // 資料開啟失敗 
     if (!infile.is_open()) {
@@ -232,7 +236,7 @@ void Min_Max_Heap(string fileName) {
             // 半段目前的節點處在min heap的部分還是max heap 
             int depth = 0;
             int temp = 1;
-            while (temp < student_count.size()) {
+            while (temp <= student_count.size()) {
             	depth++;
             	temp = temp * 2;
 			}
